@@ -52,12 +52,7 @@ cd /home/lee/vinsFusion_ws/VINS-Fusion/docker
 
 | 宿主机路径 | 容器内路径 |
 |-----------|-----------|
-| `/home/lee/Documents/Datasets_VSLAM/euroc_mav/` | `/root/datasets/euroc_mav/` |
-| `/home/lee/Documents/Datasets_VSLAM/KAIST/` | `/root/datasets/KAIST/` |
 | `/home/lee/Documents/Datasets_VSLAM/TUM/` | `/root/datasets/TUM/` |
-| `/home/lee/Documents/Datasets_VSLAM/M2DGR/` | `/root/datasets/M2DGR/` |
-| `/home/lee/Documents/Datasets_VSLAM/GVINS/` | `/root/datasets/GVINS/` |
-| `/home/lee/Documents/Datasets_VSLAM/PIC/` | `/root/datasets/PIC/` |
 
 ---
 

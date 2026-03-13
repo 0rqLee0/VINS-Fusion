@@ -10,6 +10,10 @@
 #include <opencv2/core/eigen.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
+#include <opencv2/imgproc/types_c.h>
+#ifndef CV_AA
+#define CV_AA cv::LINE_AA
+#endif
 
 #include "camodocal/camera_models/CameraFactory.h"
 #include "camodocal/sparse_graph/Transform.h"

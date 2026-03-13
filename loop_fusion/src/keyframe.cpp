@@ -10,6 +10,10 @@
  *******************************************************/
 
 #include "keyframe.h"
+#include <opencv2/imgproc/types_c.h>
+#ifndef CV_FONT_HERSHEY_SIMPLEX
+#define CV_FONT_HERSHEY_SIMPLEX cv::FONT_HERSHEY_SIMPLEX
+#endif
 
 template <typename Derived>
 static void reduceVector(vector<Derived> &v, vector<uchar> status)

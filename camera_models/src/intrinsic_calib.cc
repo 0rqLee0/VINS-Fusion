@@ -7,6 +7,10 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgproc/types_c.h>
+#ifndef CV_AA
+#define CV_AA cv::LINE_AA
+#endif
 
 #include "camodocal/calib/CameraCalibration.h"
 #include "camodocal/chessboard/Chessboard.h"

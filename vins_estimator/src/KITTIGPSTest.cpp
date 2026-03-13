@@ -15,6 +15,7 @@
 #include <string>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgcodecs/legacy/constants_c.h>
 #include <ros/ros.h>
 #include <sensor_msgs/NavSatFix.h>
 #include "estimator/estimator.h"

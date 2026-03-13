@@ -10,6 +10,10 @@
  *******************************************************/
 
 #include "pose_graph.h"
+#include <opencv2/imgproc/types_c.h>
+#ifndef CV_FONT_HERSHEY_SIMPLEX
+#define CV_FONT_HERSHEY_SIMPLEX cv::FONT_HERSHEY_SIMPLEX
+#endif
 
 PoseGraph::PoseGraph()
 {

@@ -1,0 +1,54 @@
+FROM ros:noetic-perception
+
+ENV CERES_VERSION="2.1.0"
+ENV CATKIN_WS=/root/catkin_ws
+
+# Install dependencies and build Ceres
+RUN apt-get update && apt-get install -y \
+      git \
+      cmake \
+      libatlas-base-dev \
+      libeigen3-dev \
+      libgoogle-glog-dev \
+      libsuitesparse-dev \
+      python3-catkin-tools \
+      ros-${ROS_DISTRO}-cv-bridge \
+      ros-${ROS_DISTRO}-image-transport \
+      ros-${ROS_DISTRO}-message-filters \
+      ros-${ROS_DISTRO}-tf \
+      ros-${ROS_DISTRO}-rviz && \
+    rm -rf /var/lib/apt/lists/* && \
+    # Build and install Ceres
+    git clone https://ceres-solver.googlesource.com/ceres-solver && \
+    cd ceres-solver && \
+    git checkout tags/${CERES_VERSION} && \
+    mkdir build && cd build && \
+    cmake .. && \
+    make -j$(nproc) install && \
+    rm -rf /ceres-solver
+
+# Create workspace and copy source
+RUN mkdir -p $CATKIN_WS/src/VINS-Fusion/
+COPY ./ $CATKIN_WS/src/VINS-Fusion/
+
+# Build VINS-Fusion
+WORKDIR $CATKIN_WS
+ENV TERM=xterm
+ENV PYTHONIOENCODING=UTF-8
+RUN catkin config \
+      --extend /opt/ros/$ROS_DISTRO \
+      --cmake-args \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_CXX_STANDARD=14 && \
+    catkin build && \
+    sed -i '/exec "$@"/i \
+            source "/root/catkin_ws/devel/setup.bash"' /ros_entrypoint.sh
+
+# 输出目录和数据集目录
+RUN mkdir -p /root/datasets /root/output
+
+# 将运行脚本复制到方便的位置
+RUN cp $CATKIN_WS/src/VINS-Fusion/docker/run_euroc.sh /usr/local/bin/run_euroc && \
+    chmod +x /usr/local/bin/run_euroc
+
+VOLUME /root/datasets

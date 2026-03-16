@@ -1,0 +1,39 @@
+<launch>
+    <!-- 参数 -->
+    <arg name="config_path" default="$(find vins)/../config/kaist/kaist_stereo_imu_config.yaml"/>
+    <arg name="bag_file" doc="bag文件完整路径"/>
+    <arg name="enable_rviz" default="false" doc="是否启动rviz"/>
+    <arg name="enable_loop" default="false" doc="是否启用回环检测"/>
+    <arg name="enable_gps" default="true" doc="是否启用GPS融合"/>
+    <arg name="gps_topic" default="/gps" doc="GPS话题名"/>
+    <arg name="output_path" default="/root/output/vio_global.csv" doc="全局融合输出路径"/>
+
+    <!-- VINS 节点 -->
+    <node name="vins_node" pkg="vins" type="vins_node" output="screen"
+          args="$(arg config_path)"/>
+
+    <!-- 回环检测 (可选) -->
+    <group if="$(arg enable_loop)">
+        <node name="loop_fusion_node" pkg="loop_fusion" type="loop_fusion_node" output="screen"
+              args="$(arg config_path)"/>
+    </group>
+
+    <!-- GPS全局融合 (可选) -->
+    <group if="$(arg enable_gps)">
+        <node name="globalEstimator" pkg="global_fusion" type="global_fusion_node" output="screen">
+            <param name="output_path" value="$(arg output_path)"/>
+            <remap from="/gps" to="$(arg gps_topic)"/>
+        </node>
+    </group>
+
+    <!-- rviz (可选) -->
+    <group if="$(arg enable_rviz)">
+        <node name="rviz" pkg="rviz" type="rviz" output="log"
+              args="-d $(find vins)/../config/vins_rviz_config.rviz"/>
+    </group>
+
+    <!-- rosbag 回放 -->
+    <node name="rosbag_play" pkg="rosbag" type="play" output="screen"
+          args="--clock -d 3 $(arg bag_file)"
+          required="true"/>
+</launch>

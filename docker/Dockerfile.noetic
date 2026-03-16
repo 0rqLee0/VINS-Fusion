@@ -49,6 +49,8 @@ RUN mkdir -p /root/datasets /root/output
 
 # 将运行脚本复制到方便的位置
 RUN cp $CATKIN_WS/src/VINS-Fusion/docker/run_euroc.sh /usr/local/bin/run_euroc && \
-    chmod +x /usr/local/bin/run_euroc
+    cp $CATKIN_WS/src/VINS-Fusion/docker/run_kaist.sh /usr/local/bin/run_kaist && \
+    cp $CATKIN_WS/src/VINS-Fusion/docker/run_rpng_plane.sh /usr/local/bin/run_rpng_plane && \
+    chmod +x /usr/local/bin/run_euroc /usr/local/bin/run_kaist /usr/local/bin/run_rpng_plane
 
 VOLUME /root/datasets

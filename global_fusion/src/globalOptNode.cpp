@@ -30,6 +30,7 @@ nav_msgs::Path *global_path;
 double last_vio_t = -1;
 std::queue<sensor_msgs::NavSatFixConstPtr> gpsQueue;
 std::mutex m_buf;
+std::string GLOBAL_OUTPUT_PATH = "/root/output/vio_global.csv";
 
 void publish_car_model(double t, Eigen::Vector3d t_w_car, Eigen::Quaterniond q_w_car)
 {
@@ -143,7 +144,7 @@ void vio_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)
 
 
     // write result to file
-    std::ofstream foutC("/home/tony-ws1/output/vio_global.csv", ios::app);
+    std::ofstream foutC(GLOBAL_OUTPUT_PATH, ios::app);
     foutC.setf(ios::fixed, ios::floatfield);
     foutC.precision(0);
     foutC << pose_msg->header.stamp.toSec() * 1e9 << ",";
@@ -162,6 +163,8 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "globalEstimator");
     ros::NodeHandle n("~");
+
+    n.param<std::string>("output_path", GLOBAL_OUTPUT_PATH, GLOBAL_OUTPUT_PATH);
 
     global_path = &globalEstimator.global_path;
 

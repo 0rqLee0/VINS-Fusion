@@ -89,6 +89,54 @@ run_euroc /root/datasets/euroc_mav/MH_01_easy.bag --rviz
 
 TUM 轨迹文件同时保存在宿主机 `~/Results/vinsFusion_output/` 目录下。
 
+### KAIST 数据集 (双目 + IMU + GPS)
+
+容器内提供 `run_kaist` 命令，支持 GPS 全局融合：
+
+```bash
+# 默认配置 (双目+IMU+GPS)
+run_kaist /root/datasets/kaist/urban28.bag
+
+# 指定GPS话题名 (默认 /gps)
+run_kaist /root/datasets/KAIST/urban28.bag --gps-topic /navsat/fix
+
+# 不使用GPS
+run_kaist /root/datasets/KAIST/urban28.bag --no-gps
+
+# 启用回环检测和rviz
+run_kaist /root/datasets/KAIST/urban28.bag --loop --rviz
+```
+
+运行完成后输出：
+
+```
+/root/output/
+├── urban28.csv                # VINS VIO 轨迹
+├── urban28_tum.txt            # VIO TUM 格式轨迹
+├── urban28_global.csv         # GPS全局融合轨迹
+└── urban28_global_tum.txt     # GPS全局融合 TUM 格式轨迹
+```
+
+### rpng_plane (Table) 数据集 (单目 + IMU)
+
+容器内提供 `run_rpng_plane` 命令：
+
+```bash
+# 默认配置 (单目+IMU)
+run_rpng_plane /root/datasets/table/table_01.bag
+
+# 启用回环检测和rviz
+run_rpng_plane /root/datasets/table/table_01.bag --loop --rviz
+```
+
+运行完成后输出：
+
+```
+/root/output/
+├── table.csv              # VINS 原始 CSV 轨迹
+└── table_tum.txt          # TUM 格式轨迹
+```
+
 ### 手动运行（多终端方式）
 
 如需更灵活的控制，可手动启动各节点。每个新终端先进入容器：

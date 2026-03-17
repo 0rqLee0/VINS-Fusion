@@ -19,7 +19,7 @@ OUTPUT_DIR="/root/output"
 ENABLE_RVIZ="false"
 ENABLE_LOOP="false"
 ENABLE_GPS="true"
-GPS_TOPIC="/gps"
+GPS_TOPIC="/gps/fix"
 BAG_FILE=""
 
 # 解析参数

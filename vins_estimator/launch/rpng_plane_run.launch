@@ -6,7 +6,7 @@
     <arg name="enable_loop" default="false" doc="是否启用回环检测"/>
 
     <!-- VINS 节点 -->
-    <node name="vins_node" pkg="vins" type="vins_node" output="screen"
+    <node name="vins_estimator" pkg="vins" type="vins_node" output="screen"
           args="$(arg config_path)"/>
 
     <!-- 回环检测 (可选) -->

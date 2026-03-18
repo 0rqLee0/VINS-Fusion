@@ -9,7 +9,7 @@
     <arg name="output_path" default="/root/output/vio_global.csv" doc="全局融合输出路径"/>
 
     <!-- VINS 节点 -->
-    <node name="vins_node" pkg="vins" type="vins_node" output="screen"
+    <node name="vins_estimator" pkg="vins" type="vins_node" output="screen"
           args="$(arg config_path)"/>
 
     <!-- 回环检测 (可选) -->

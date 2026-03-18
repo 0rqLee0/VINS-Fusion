@@ -95,7 +95,7 @@ TUM 轨迹文件同时保存在宿主机 `~/Results/vinsFusion_output/` 目录�
 
 ```bash
 # 默认配置 (双目+IMU+GPS)
-run_kaist /root/datasets/kaist/urban28/urban28.bag
+run_kaist /root/datasets/KAIST/urban28/urban28.bag
 
 # 不使用GPS
 run_kaist /root/datasets/KAIST/urban28/urban28.bag --no-gps
